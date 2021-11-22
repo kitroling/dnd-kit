@@ -4,11 +4,8 @@ export {getRectDelta} from './getRectDelta';
 
 export {getAdjustedRect} from './rectAdjustment';
 
-export {
-  getBoundingClientRect,
-  getLayoutRect,
-  getViewportLayoutRect,
-  getViewRect,
-} from './getRect';
+export {getClientRect, getTransformAgnosticClientRect} from './getClientRect';
 
-export {isViewRect} from './isViewRect';
+export {getWindowClientRect} from './getWindowClientRect';
+
+export type {Rect} from './getClientRect';

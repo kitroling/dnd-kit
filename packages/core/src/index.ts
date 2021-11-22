@@ -80,24 +80,21 @@ export type {
 } from './store';
 
 export type {
+  ClientRect,
   DistanceMeasurement,
   DragEndEvent,
   DragMoveEvent,
   DragOverEvent,
   DragStartEvent,
   DragCancelEvent,
-  LayoutRect,
   Translate,
   UniqueIdentifier,
-  ViewRect,
 } from './types';
 
 export {
   defaultCoordinates,
-  getBoundingClientRect,
-  getViewRect,
-  getLayoutRect,
-  getViewportLayoutRect,
+  getClientRect,
+  getTransformAgnosticClientRect,
   getScrollableAncestors,
   closestCenter,
   closestCorners,

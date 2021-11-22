@@ -13,7 +13,6 @@ import {
   DragMoveEvent,
   DragEndEvent,
   DragOverEvent,
-  Measuring,
   MeasuringStrategy,
   DropAnimation,
   defaultDropAnimation,
@@ -283,7 +282,6 @@ export function SortableTree({
   function handleCollapse(id: string) {
     setItems((items) =>
       setProperty(items, id, 'collapsed', (value) => {
-        console.log(value);
         return !value;
       })
     );

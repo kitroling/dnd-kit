@@ -1,6 +1,5 @@
 import {
   closestCorners,
-  getViewRect,
   getScrollableAncestors,
   KeyboardCode,
   DroppableContainer,
@@ -32,39 +31,31 @@ export const sortableKeyboardCoordinates: KeyboardCoordinateGetter = (
         return;
       }
 
-      const node = entry?.node.current;
+      const rect = entry?.rect.current;
 
-      if (!node) {
+      if (!rect) {
         return;
       }
-
-      const rect = getViewRect(node);
-      const container: DroppableContainer = {
-        ...entry,
-        rect: {
-          current: rect,
-        },
-      };
 
       switch (event.code) {
         case KeyboardCode.Down:
           if (translatedRect.top + translatedRect.height <= rect.top) {
-            filteredContainers.push(container);
+            filteredContainers.push(entry);
           }
           break;
         case KeyboardCode.Up:
           if (translatedRect.top >= rect.top + rect.height) {
-            filteredContainers.push(container);
+            filteredContainers.push(entry);
           }
           break;
         case KeyboardCode.Left:
           if (translatedRect.left >= rect.left + rect.width) {
-            filteredContainers.push(container);
+            filteredContainers.push(entry);
           }
           break;
         case KeyboardCode.Right:
           if (translatedRect.left + translatedRect.width <= rect.left) {
-            filteredContainers.push(container);
+            filteredContainers.push(entry);
           }
           break;
       }
@@ -77,14 +68,15 @@ export const sortableKeyboardCoordinates: KeyboardCoordinateGetter = (
     });
 
     if (closestId) {
-      const newNode = droppableContainers.get(closestId)?.node.current;
+      const newDroppable = droppableContainers.get(closestId);
+      const newNode = newDroppable?.node.current;
+      const newRect = newDroppable?.rect.current;
 
-      if (newNode) {
+      if (newNode && newRect) {
         const newScrollAncestors = getScrollableAncestors(newNode);
         const hasDifferentScrollAncestors = newScrollAncestors.some(
           (element, index) => scrollableAncestors[index] !== element
         );
-        const newRect = getViewRect(newNode);
         const offset = hasDifferentScrollAncestors
           ? {
               x: 0,

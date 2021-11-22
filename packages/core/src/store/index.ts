@@ -11,7 +11,7 @@ export type {
   DroppableContainer,
   DroppableContainers,
   DndContextDescriptor,
-  LayoutRectMap,
+  ClientRectMap,
   Over,
   State,
 } from './types';

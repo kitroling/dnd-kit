@@ -1,10 +1,10 @@
-import type {Modifier, ViewRect} from '@dnd-kit/core';
+import type {Modifier, ClientRect} from '@dnd-kit/core';
 import type {FirstArgument, Transform} from '@dnd-kit/utilities';
 
 import {restrictToHorizontalAxis, restrictToVerticalAxis} from '../src';
 
 describe('@dnd-kit/modifiers', () => {
-  const defaultRect: ViewRect = {
+  const defaultRect: ClientRect = {
     left: 0,
     right: 0,
     top: 0,

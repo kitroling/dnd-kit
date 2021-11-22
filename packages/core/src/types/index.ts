@@ -2,8 +2,6 @@ export type {
   Coordinates,
   ClientRect,
   DistanceMeasurement,
-  LayoutRect,
-  ViewRect,
   Translate,
   ScrollCoordinates,
 } from './coordinates';

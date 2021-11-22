@@ -1,17 +1,20 @@
 import {useRef} from 'react';
 import {isHTMLElement, useLazyMemo} from '@dnd-kit/utilities';
 
-import {getBoundingClientRect, getViewRect} from '../../utilities';
-import type {LayoutRect} from '../../types';
+import {
+  getWindowClientRect,
+  getTransformAgnosticClientRect,
+} from '../../utilities';
+import type {ClientRect} from '../../types';
 
 type RectFn<T, U> = (element: U) => T;
 
-export const useViewRect = createUseRectFn(getViewRect);
-export const useClientRect = createUseRectFn(getBoundingClientRect);
-export const useClientRects = createUseRectsFn(getBoundingClientRect);
+export const useWindowRect = createUseRectFn(getWindowClientRect);
+export const useClientRect = createUseRectFn(getTransformAgnosticClientRect);
+export const useClientRects = createUseRectsFn(getTransformAgnosticClientRect);
 
 export function useRect<
-  T = LayoutRect,
+  T = ClientRect,
   U extends Element | Window = HTMLElement
 >(
   element: U | null,
@@ -45,14 +48,14 @@ export function useRect<
 }
 
 export function createUseRectFn<
-  T = LayoutRect,
+  T = ClientRect,
   U extends Element | Window = HTMLElement
 >(getRect: RectFn<T, U>) {
   return (element: U | null, forceRecompute?: boolean) =>
     useRect(element, getRect, forceRecompute);
 }
 
-function createUseRectsFn<T = LayoutRect>(getRect: RectFn<T, HTMLElement>) {
+function createUseRectsFn<T = ClientRect>(getRect: RectFn<T, HTMLElement>) {
   const defaultValue: T[] = [];
 
   return function useRects(elements: Element[], forceRecompute?: boolean): T[] {

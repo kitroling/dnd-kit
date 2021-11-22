@@ -5,15 +5,14 @@ import type {
   DraggableNode,
   DraggableNodes,
   DroppableContainers,
-  LayoutRectMap,
+  ClientRectMap,
 } from '../store';
 import type {
   Coordinates,
-  LayoutRect,
   SyntheticEventName,
   Translate,
   UniqueIdentifier,
-  ViewRect,
+  ClientRect,
 } from '../types';
 
 export enum Response {
@@ -25,15 +24,16 @@ export enum Response {
 export type SensorContext = {
   active: Active | null;
   activeNode: HTMLElement | null;
-  collisionRect: ViewRect | null;
+  collisionRect: ClientRect | null;
   draggableNodes: DraggableNodes;
-  draggingNodeRect: LayoutRect | null;
-  droppableRects: LayoutRectMap;
+  draggingNode: HTMLElement | null;
+  draggingNodeRect: ClientRect | null;
+  droppableRects: ClientRectMap;
   droppableContainers: DroppableContainers;
   over: Over | null;
   scrollableAncestors: Element[];
   scrollAdjustedTranslate: Translate | null;
-  translatedRect: ViewRect | null;
+  translatedRect: ClientRect | null;
 };
 
 export type SensorOptions = {};

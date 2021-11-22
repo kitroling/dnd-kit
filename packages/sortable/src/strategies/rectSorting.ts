@@ -2,14 +2,14 @@ import {arrayMove} from '../utilities';
 import type {SortingStrategy} from '../types';
 
 export const rectSortingStrategy: SortingStrategy = ({
-  layoutRects,
+  clientRects,
   activeIndex,
   overIndex,
   index,
 }) => {
-  const newRects = arrayMove(layoutRects, overIndex, activeIndex);
+  const newRects = arrayMove(clientRects, overIndex, activeIndex);
 
-  const oldRect = layoutRects[index];
+  const oldRect = clientRects[index];
   const newRect = newRects[index];
 
   if (!newRect || !oldRect) {

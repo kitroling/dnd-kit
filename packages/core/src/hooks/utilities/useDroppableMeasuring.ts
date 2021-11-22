@@ -1,9 +1,9 @@
 import {useCallback, useEffect, useRef, useState} from 'react';
 import {useLazyMemo} from '@dnd-kit/utilities';
 
-import {getLayoutRect} from '../../utilities';
-import type {DroppableContainer, LayoutRectMap} from '../../store/types';
-import type {LayoutRect} from '../../types';
+import {getTransformAgnosticClientRect} from '../../utilities';
+import type {DroppableContainer, ClientRectMap} from '../../store/types';
+import type {ClientRect} from '../../types';
 
 interface Arguments {
   dragging: boolean;
@@ -21,7 +21,7 @@ export enum MeasuringFrequency {
   Optimized = 'optimized',
 }
 
-type MeasuringFunction = (element: HTMLElement) => LayoutRect;
+type MeasuringFunction = (element: HTMLElement) => ClientRect;
 
 export interface DroppableMeasuring {
   measure: MeasuringFunction;
@@ -29,10 +29,10 @@ export interface DroppableMeasuring {
   frequency: MeasuringFrequency | number;
 }
 
-const defaultValue: LayoutRectMap = new Map();
+const defaultValue: ClientRectMap = new Map();
 
 const defaultConfig: DroppableMeasuring = {
-  measure: getLayoutRect,
+  measure: getTransformAgnosticClientRect,
   strategy: MeasuringStrategy.WhileDragging,
   frequency: MeasuringFrequency.Optimized,
 };
@@ -50,7 +50,7 @@ export function useDroppableMeasuring(
   const recomputeLayouts = useCallback(() => setWillRecomputeLayouts(true), []);
   const recomputeLayoutsTimeoutId = useRef<NodeJS.Timeout | null>(null);
   const disabled = isDisabled();
-  const layoutRectMap = useLazyMemo<LayoutRectMap>(
+  const clientRectMap = useLazyMemo<ClientRectMap>(
     (previousValue) => {
       if (disabled && !dragging) {
         return defaultValue;
@@ -72,7 +72,7 @@ export function useDroppableMeasuring(
             : null;
         }
 
-        return createLayoutRectMap(containers);
+        return createClientRectMap(containers);
       }
 
       return previousValue;
@@ -122,7 +122,7 @@ export function useDroppableMeasuring(
   );
 
   return {
-    layoutRectMap,
+    clientRectMap,
     recomputeLayouts,
     willRecomputeLayouts,
   };
@@ -139,10 +139,10 @@ export function useDroppableMeasuring(
   }
 }
 
-function createLayoutRectMap(
+function createClientRectMap(
   containers: DroppableContainer[] | null
-): LayoutRectMap {
-  const layoutRectMap: LayoutRectMap = new Map();
+): ClientRectMap {
+  const clientRectMap: ClientRectMap = new Map();
 
   if (containers) {
     for (const container of containers) {
@@ -156,9 +156,9 @@ function createLayoutRectMap(
         continue;
       }
 
-      layoutRectMap.set(id, rect.current);
+      clientRectMap.set(id, rect.current);
     }
   }
 
-  return layoutRectMap;
+  return clientRectMap;
 }

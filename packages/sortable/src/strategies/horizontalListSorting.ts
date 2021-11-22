@@ -1,4 +1,4 @@
-import type {LayoutRect} from '@dnd-kit/core';
+import type {ClientRect} from '@dnd-kit/core';
 import type {SortingStrategy} from '../types';
 
 // To-do: We should be calculating scale transformation
@@ -8,22 +8,22 @@ const defaultScale = {
 };
 
 export const horizontalListSortingStrategy: SortingStrategy = ({
-  layoutRects,
+  clientRects,
   activeNodeRect: fallbackActiveRect,
   activeIndex,
   overIndex,
   index,
 }) => {
-  const activeNodeRect = layoutRects[activeIndex] ?? fallbackActiveRect;
+  const activeNodeRect = clientRects[activeIndex] ?? fallbackActiveRect;
 
   if (!activeNodeRect) {
     return null;
   }
 
-  const itemGap = getItemGap(layoutRects, index, activeIndex);
+  const itemGap = getItemGap(clientRects, index, activeIndex);
 
   if (index === activeIndex) {
-    const newIndexRect = layoutRects[overIndex];
+    const newIndexRect = clientRects[overIndex];
 
     if (!newIndexRect) {
       return null;
@@ -65,13 +65,13 @@ export const horizontalListSortingStrategy: SortingStrategy = ({
 };
 
 function getItemGap(
-  layoutRects: LayoutRect[],
+  clientRects: ClientRect[],
   index: number,
   activeIndex: number
 ) {
-  const currentRect: LayoutRect | undefined = layoutRects[index];
-  const previousRect: LayoutRect | undefined = layoutRects[index - 1];
-  const nextRect: LayoutRect | undefined = layoutRects[index + 1];
+  const currentRect: ClientRect | undefined = clientRects[index];
+  const previousRect: ClientRect | undefined = clientRects[index - 1];
+  const nextRect: ClientRect | undefined = clientRects[index + 1];
 
   if (!currentRect || (!previousRect && !nextRect)) {
     return 0;

@@ -2,6 +2,7 @@
   "extends": "./tsconfig.build.json",
   "include": ["packages", "types", "scripts", "playground", "stories"],
   "compilerOptions": {
+    "target": "ES5",
     "allowJs": false,
     "baseUrl": ".",
     "importsNotUsedAsValues": "error",

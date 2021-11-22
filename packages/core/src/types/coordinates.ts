@@ -10,21 +10,16 @@ export type DistanceMeasurement =
 
 export type Translate = Coordinates;
 
-export interface LayoutRect {
+export interface ClientRect {
   width: number;
   height: number;
-  offsetLeft: number;
-  offsetTop: number;
-}
-
-export interface ViewRect extends LayoutRect {
   top: number;
   left: number;
   right: number;
   bottom: number;
+  offsetTop: number;
+  offsetLeft: number;
 }
-
-export interface ClientRect extends ViewRect {}
 
 export interface ScrollCoordinates {
   initial: Coordinates;

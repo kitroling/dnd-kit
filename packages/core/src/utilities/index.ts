@@ -10,13 +10,13 @@ export {
 export {
   adjustScale,
   getAdjustedRect,
+  getClientRect,
+  getTransformAgnosticClientRect,
+  getWindowClientRect,
   getRectDelta,
-  getLayoutRect,
-  getViewportLayoutRect,
-  getBoundingClientRect,
-  getViewRect,
-  isViewRect,
 } from './rect';
+
+export type {Rect} from './rect';
 
 export {noop} from './other';
 
