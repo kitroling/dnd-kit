@@ -1,5 +1,6 @@
 export type {
   Coordinates,
+  BoundingRect,
   ClientRect,
   DistanceMeasurement,
   Translate,

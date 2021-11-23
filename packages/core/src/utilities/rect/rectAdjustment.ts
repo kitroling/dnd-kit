@@ -15,16 +15,7 @@ export function createRectAdjustmentFn(modifier: number) {
         offsetLeft: acc.offsetLeft + modifier * adjustment.x,
         offsetTop: acc.offsetTop + modifier * adjustment.y,
       }),
-      {
-        top: clientRect.top,
-        left: clientRect.left,
-        right: clientRect.right,
-        bottom: clientRect.bottom,
-        width: clientRect.width,
-        height: clientRect.height,
-        offsetTop: clientRect.offsetTop,
-        offsetLeft: clientRect.offsetLeft,
-      }
+      {...clientRect}
     );
   };
 }

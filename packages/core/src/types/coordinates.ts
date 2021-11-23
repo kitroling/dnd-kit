@@ -10,13 +10,16 @@ export type DistanceMeasurement =
 
 export type Translate = Coordinates;
 
-export interface ClientRect {
+export interface BoundingRect {
   width: number;
   height: number;
   top: number;
   left: number;
   right: number;
   bottom: number;
+}
+
+export interface ClientRect extends BoundingRect {
   offsetTop: number;
   offsetLeft: number;
 }

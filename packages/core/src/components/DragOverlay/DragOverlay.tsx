@@ -5,10 +5,8 @@ import {getRelativeTransformOrigin} from '../../utilities';
 import {applyModifiers, Modifiers} from '../../modifiers';
 import {ActiveDraggableContext} from '../DndContext';
 import {useDndContext} from '../../hooks';
-import type {ClientRect} from '../../types';
+import type {BoundingRect} from '../../types';
 import {useDropAnimation, defaultDropAnimation, DropAnimation} from './hooks';
-
-type Rect = Omit<ClientRect, 'offsetTop' | 'offsetLeft'>;
 
 type TransitionGetter = (
   activatorEvent: Event | null
@@ -79,7 +77,7 @@ export const DragOverlay = React.memo(
           scaleY: 1,
         };
 
-    const initialRect = useLazyMemo<Rect | null>(
+    const initialRect = useLazyMemo<BoundingRect | null>(
       (previousValue) => {
         if (isDragging) {
           if (previousValue) {
@@ -90,13 +88,10 @@ export const DragOverlay = React.memo(
             return null;
           }
 
+          console.log({...activeNodeRect});
+
           return {
-            width: activeNodeRect.width,
-            height: activeNodeRect.height,
-            top: activeNodeRect.top,
-            left: activeNodeRect.left,
-            right: activeNodeRect.right,
-            bottom: activeNodeRect.bottom,
+            ...activeNodeRect,
           };
         }
 
